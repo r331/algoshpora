@@ -7,7 +7,7 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <name>OCP-Oracle-Certified-Professional-Java-SE-17-1Z0-829-Open-Study-Guide</name>
+    <name>AlgoShpora</name>
     <description>Open source book</description>
 
     <properties>
@@ -53,7 +53,7 @@
                             <goal>process-asciidoc</goal>
                         </goals>
                         <configuration>
-                            <sourceDocumentName>1Z0-829StudyGuide.adoc</sourceDocumentName>
+                            <sourceDocumentName>CrackCodeInterview.adoc</sourceDocumentName>
                             <outputFile>index.html</outputFile>
                         </configuration>
                     </execution>
