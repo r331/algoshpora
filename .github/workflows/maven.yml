@@ -1,0 +1,26 @@
+name: build
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Deploy to GitHub Pages
+      if: success() && github.ref == 'refs/heads/main'
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        target_branch: gh-pages
+        build_dir: target/generated-docs
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
