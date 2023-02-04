@@ -1,0 +1,60 @@
+= A set of basic algorithms for a job interview at a decent company
+:imagesdir: images
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+
+== Decent algorithms
+image::img.png[decent weed (c) South Park]
+
+== Arrays & hash functions
+
+=== Contains Duplicate
+Link: https://leetcode.com/problems/contains-duplicate/
+
+Given an integer array _nums_, return _true_ if any value appears *at least twice* in the array,
+and return _false_ if every element is distinct.
+
+[source,java]
+----
+public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<Integer>();
+        for(int i = 0; i < nums.length; i++){
+            if(set.contains(nums[i]))
+            return true;
+            set.add(nums[i]);
+        }
+        return false;
+    }
+----
+
+=== Valid Anagram
+Link: https://leetcode.com/problems/valid-anagram/
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase,
+typically using all the original letters exactly once.
+
+[source,java]
+----
+public boolean isAnagram(String s, String t) {
+        // s & t has only a-z
+        // s should == t
+        if(s.length() != t.length()) return false;
+
+        int [] letters = new int[26];
+        for(int i = 0; i < s.length(); i++){
+            letters[s.charAt(i) - 'a']++;
+            letters[t.charAt(i) - 'a']--;
+        }
+
+        for(int i = 0; i < 26; i++){
+            if(letters[i]!=0)
+            return false;
+        }
+        return true;
+    }
+----
+
+=== Two Sum
