@@ -72,3 +72,69 @@ public int[] twoSum(int[] nums, int target) {
         return new int[0];
     }
 ----
+
+=== Group Anagrams
+Link: https://leetcode.com/problems/group-anagrams/
+
+[source, java]
+----
+public List<List<String>> groupAnagrams(String[] strs) {
+        // we have a-z
+        // str!=null, str size > 0
+
+        Map<String, List<String>> map = new HashMap<>();
+
+        for(String s : strs){
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            if(map.containsKey(key)){
+                map.get(key).add(s);
+            }else{
+                var lst = new ArrayList<String>();
+                lst.add(s);
+                 map.put(key, lst);
+
+            }
+
+        }
+        return map.values().stream().toList();
+    }
+----
+
+=== Top K Frequent Elements
+Link: https://leetcode.com/problems/top-k-frequent-elements/
+
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+[source, java]
+----
+public int[] topKFrequent(int[] nums, int k) {
+        // sort -> place it in TreeMap (or Sort Stack)
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i =0; i < nums.length; i++){
+            if(map.containsKey(nums[i])){
+                map.put(nums[i], map.get(nums[i]) + 1);
+            }
+            else{
+                map.put(nums[i], 1);
+            }
+        }
+          Queue<Integer> heap = new PriorityQueue<>(
+            (n1, n2) -> map.get(n1) - map.get(n2));
+
+           for (int n: map.keySet()) {
+          heap.add(n);
+          if (heap.size() > k) heap.poll();
+        }
+
+        return heap.stream().mapToInt(x -> x).toArray();
+    }
+----
+
+===
+
+
+[source, java]
+----
+----
