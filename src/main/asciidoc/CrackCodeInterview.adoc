@@ -132,6 +132,208 @@ public int[] topKFrequent(int[] nums, int k) {
     }
 ----
 
+=== Product of Array Except Self
+Link: https://leetcode.com/problems/product-of-array-except-self/
+
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in O(n) time and without using the division operation.
+
+
+[source, java]
+----
+public int[] productExceptSelf(int[] nums) {
+       // asume that a[0] * a[1] * ... a[n] <= MAX_INTEGER
+               int len = nums.length;
+        int [] result = new int[len];
+
+        int left[] = new int[len];
+        int right[] = new int[len];
+
+        left[0] = 1;
+        right [len - 1] = 1;
+        for(int i = 1; i < len; i++){
+            left[i] = left[i - 1] * nums[i - 1];
+        }
+        for(int i = len - 2; i >= 0; i--){
+            right[i] = right[i + 1] * nums[i + 1];
+        }
+
+        for( int i =0; i < len; i++){
+            result[i] = left[i] * right[i];
+        }
+        return result;
+    }
+----
+
+=== Valid Sudoku
+Link: https://leetcode.com/problems/valid-sudoku/
+
+Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+
+Each row must contain the digits 1-9 without repetition.
+Each column must contain the digits 1-9 without repetition.
+Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+Note:
+
+A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+Only the filled cells need to be validated according to the mentioned rules.
+
+[source, java]
+----
+public boolean isValidSudoku(char[][] board) {
+        // 9x9
+        // each row 1-9 without reprtition
+        //each colum 1-9 without repetiotion
+        //each boxes with size 3x3 should contain 1-9 without rep
+        //we have dots if no symbol
+        // possible values 1-9 and dots
+        ////////
+        //check all things separately
+        int len = board.length;
+
+        HashSet<Character>[] rows = new HashSet[len];
+        HashSet<Character>[] columns = new HashSet[len];
+        HashSet<Character>[][] boxes = new HashSet[len / 3][len / 3];
+
+        for (int i = 0; i < len; i++) {
+            rows[i] = new HashSet<Character>();
+            columns[i] = new HashSet<Character>();
+
+        }
+        for (int r = 0; r < len / 3; r++)
+            for (int c = 0; c < len / 3; c++)
+                boxes[r][c] = new HashSet<Character>();
+
+
+        for (int r = 0; r < len; r++)
+            for (int c = 0; c < len; c++) {
+                var sym = board[r][c];
+                if (sym == '.')
+                    continue;
+                if (rows[r].contains(sym))
+                    return false;
+                rows[r].add(sym);
+
+                if (columns[c].contains(sym))
+                    return false;
+                columns[c].add(sym);
+
+                if (boxes[r / 3][c / 3].contains(sym))
+                    return false;
+                boxes[r / 3][c / 3].add(sym);
+            }
+        return true;
+    }
+----
+
+
+===  Longest Consecutive Sequence
+Link: https://leetcode.com/problems/longest-consecutive-sequence/
+
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+
+You must write an algorithm that runs in O(n) time.
+
+[source, java]
+----
+public int longestConsecutive(int[] nums) {
+        if(nums.length == 0)
+            return 0;
+        Set<Integer> dig = new HashSet<Integer>();
+
+        for(int i : nums)
+            dig.add(i);
+
+        int maxLen = 1;
+
+        for(int i = 0; i < nums.length; i++){
+            int val = nums[i];
+            if(dig.contains(val-1))
+                continue;
+            int currLen = 1;
+            while(true){
+                if(!dig.contains(val+currLen))
+                    break;
+                currLen++;
+            }
+            maxLen = currLen > maxLen ? currLen : maxLen;
+        }
+        return maxLen;
+    }
+----
+
+== Two Pointers
+
+=== Valid Palindrome
+Link: https://leetcode.com/problems/valid-palindrome/
+
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+[source, java]
+----
+public boolean isPalindrome(String s) {
+        //s min len = 1
+        int len = s.length();
+        if(len == 1) return true;
+        s = s.toLowerCase();
+
+        for(int start = 0, end = len - 1; start < end; start++, end--){
+            while(start<end && isNotCharOrDigit(s.charAt(start))){
+                start++;
+            }
+            while(start<end && isNotCharOrDigit(s.charAt(end))){
+                end--;
+            }
+            if(s.charAt(start)!=s.charAt(end))
+            return false;
+        }
+
+
+        return true;
+    }
+
+    boolean isNotCharOrDigit(char c){
+        return !Character.isLetterOrDigit(c);
+    }
+----
+
+
+=== Two Sum II - Input Array Is Sorted
+Link: https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+
+Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
+
+Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.
+
+The tests are generated such that there is exactly one solution. You may not use the same element twice.
+
+Your solution must use only constant extra space.
+
+[source, java]
+----
+public int[] twoSum(int[] numbers, int target) {
+       int start = 0;
+       int end = numbers.length - 1;
+       while(start < end) {
+           int sum = numbers[start] + numbers[end];
+           if(sum == target)
+            break;
+        if(sum < target)
+            start++;
+        if(sum > target)
+            end--;
+
+       }
+       return new int[]{start + 1, end + 1};
+    }
+----
+
+
 ===
 
 
