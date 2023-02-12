@@ -567,38 +567,1255 @@ private static final Map<String, BiFunction<Integer, Integer, Integer>> OPERATIO
 ----
 
 
-===
+=== Generate Parentheses
+Link: https://leetcode.com/problems/generate-parentheses/
+
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+[source, java]
+----
+private final List<String> s = new ArrayList<>();
+    public List<String> generateParenthesis(int n) {
+        // we need to know about parentheses
+        // n  - maximum amount of open par
+        // current number of open should be <=closed
+       checkIfOpen(s, 0, 0, "", n );
+       return s;
+    }
+     public void checkIfOpen(List<String> res, int left, int right, String s, int n) {
+        if (s.length() == n * 2) {
+            res.add(s);
+            return;
+        }
+
+        if (left < n) {
+            checkIfOpen(res, left + 1, right, s + "(", n);
+        }
+
+        if (right < left) {
+            checkIfOpen(res, left, right + 1, s + ")", n);
+        }
+    }
+----
+
+
+=== Daily Temperatures
+Link: https://leetcode.com/problems/daily-temperatures/
+Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
+
+[source, java]
+----
+public int[] dailyTemperatures(int[] temperatures) {
+        // last day is always 0
+        // we need to return new array, so use new array
+       Stack<Integer> stack = new Stack<>();
+        int[] ret = new int[temperatures.length];
+     for(int i = 0; i < temperatures.length; i++) {
+          while(!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
+              int idx = stack.pop();
+              ret[idx] = i - idx;
+           }
+        stack.push(i);
+    }
+    return ret;
+    }
+----
+
+
+=== Car Fleet
+Link: leetcode.com/problems/car-fleet/
+
+There are n cars going to the same destination along a one-lane road. The destination is target miles away.
+
+You are given two integer array position and speed, both of length n, where position[i] is the position of the ith car and speed[i] is the speed of the ith car (in miles per hour).
+
+A car can never pass another car ahead of it, but it can catch up to it and drive bumper to bumper at the same speed. The faster car will slow down to match the slower car's speed. The distance between these two cars is ignored (i.e., they are assumed to have the same position).
+
+A car fleet is some non-empty set of cars driving at the same position and same speed. Note that a single car is also a car fleet.
+
+If a car catches up to a car fleet right at the destination point, it will still be considered as one car fleet.
+
+Return the number of car fleets that will arrive at the destination.
+
+[source, java]
+----
+ public int carFleet(int target, int[] pos, int[] speed) {
+        int N = pos.length, res = 0;
+        double[][] cars = new double[N][2];
+        for (int i = 0; i < N; ++i)
+            cars[i] = new double[] {pos[i], (double)(target - pos[i]) / speed[i]};
+        Arrays.sort(cars, (a, b) -> Double.compare(a[0], b[0]));
+        double cur = 0;
+        for (int i = N - 1; i >= 0 ; --i) {
+            if (cars[i][1] > cur) {
+                cur = cars[i][1];
+                res++;
+            }
+        }
+        return res;
+    }
+----
+
+== Binary Search
+
+=== Binary Search
+Link: https://leetcode.com/problems/binary-search/
+
+Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+
+You must write an algorithm with O(log n) runtime complexity.
+
+[source, java]
+----
+public int search(int[] nums, int target) {
+        if(nums == null && nums.length == 0)
+        return -1;
+        int medium = (nums.length) / 2;
+
+        return binary(nums, 0, nums.length - 1, target);
+    }
+
+    int binary(int []arr, int start, int end, int target){
+            if(start == end)
+                if(arr[start] == target)
+                return start;
+                else return -1;
+            if(target < arr[start] || arr[end] < target)
+            return -1;
+            int medium = (end - start) / 2 + start;
+            if(arr[medium] == target)
+            return medium;
+
+            if(arr[medium]< target)
+            return binary(arr, medium + 1, end, target);
+            else return binary(arr, start, medium, target);
+    }
+// Lower boud - where we can put
+public int search(int[] nums, int target) {
+        // Set the left and right boundaries
+        int left = 0, right = nums.length;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] >= target) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        if (left < nums.length && nums[left] == target) {
+            return left;
+        } else {
+            return -1;
+        }
+    }
+
+----
+
+
+=== Search a 2D Matrix
+Link: https://leetcode.com/problems/search-a-2d-matrix/
+
+You are given an m x n integer matrix matrix with the following two properties:
+
+Each row is sorted in non-decreasing order.
+The first integer of each row is greater than the last integer of the previous row.
+Given an integer target, return true if target is in matrix or false otherwise.
+
+You must write a solution in O(log(m * n)) time complexity.
+
+[source, java]
+----
+public boolean searchMatrix(int[][] matrix, int target) {
+     int rows = matrix.length;
+        if (rows == 0)
+            return false;
+        int col = matrix[0].length;
+
+        int start = 0;
+        int end = rows * col - 1;
+        while(start <= end){
+            int mid = start + (end - start)/2;
+            int current = matrix[mid/col][mid%col];
+            if(current == target)
+              return true;
+            if(current>target)
+
+                 end = mid - 1;
+            else
+                   start = mid + 1;
+        }
+        return false;
+    }
+----
+
+
+=== Koko Eating Bananas
+Link: https://leetcode.com/problems/koko-eating-bananas/
+
+Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.
+
+Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.
+
+Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
+
+Return the minimum integer k such that she can eat all the bananas within h hours.
+
+[source, java]
+----
+public int minEatingSpeed(int[] piles, int H) {
+        int l = 1, r = 1000000000;
+        while (l < r) {
+            int m = (l + r) / 2, total = 0;
+            for (int p : piles)
+                total += (p + m - 1) / m;
+            if (total > H)
+                l = m + 1;
+            else
+                r = m;
+        }
+        return l;
+    }
+----
+
+=== Find Minimum in Rotated Sorted Array
+Link: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+
+Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
+
+[4,5,6,7,0,1,2] if it was rotated 4 times.
+[0,1,2,4,5,6,7] if it was rotated 7 times.
+Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
+
+Given the sorted rotated array nums of unique elements, return the minimum element of this array.
+
+You must write an algorithm that runs in O(log n) time.
+
+[source, java]
+----
+public int findMin(int[] nums) {
+        // If the list has just one element then return that element.
+        if (nums.length == 1) {
+            return nums[0];
+        }
+
+        // initializing left and right pointers.
+        int left = 0, right = nums.length - 1;
+
+        // if the last element is greater than the first element then there is no
+        // rotation.
+        // e.g. 1 < 2 < 3 < 4 < 5 < 7. Already sorted array.
+        // Hence the smallest element is first element. A[0]
+        if (nums[right] > nums[0]) {
+            return nums[0];
+        }
+
+        // Binary search way
+        while (right >= left) {
+            // Find the mid element
+            int mid = left + (right - left) / 2;
+
+            // if the mid element is greater than its next element then mid+1 element is the
+            // smallest
+            // This point would be the point of change. From higher to lower value.
+            if (nums[mid] > nums[mid + 1]) {
+                return nums[mid + 1];
+            }
+
+            // if the mid element is lesser than its previous element then mid element is
+            // the smallest
+            if (nums[mid - 1] > nums[mid]) {
+                return nums[mid];
+            }
+
+            // if the mid elements value is greater than the 0th element this means
+            // the least value is still somewhere to the right as we are still dealing with
+            // elements
+            // greater than nums[0]
+            if (nums[mid] > nums[0]) {
+                left = mid + 1;
+            } else {
+                // if nums[0] is greater than the mid value then this means the smallest value
+                // is somewhere to
+                // the left
+                right = mid - 1;
+            }
+        }
+        return Integer.MAX_VALUE;
+    }
+----
+
+=== Time Based Key-Value Store
+Link: https://leetcode.com/problems/time-based-key-value-store/
+
+Design a time-based key-value data structure that can store multiple values for the same key at different time stamps and retrieve the key's value at a certain timestamp.
+
+Implement the TimeMap class:
+
+TimeMap() Initializes the object of the data structure.
+void set(String key, String value, int timestamp) Stores the key key with the value value at the given time timestamp.
+String get(String key, int timestamp) Returns a value such that set was called previously, with timestamp_prev <= timestamp. If there are multiple such values, it returns the value associated with the largest timestamp_prev. If there are no values, it returns "".
+
+[source, java]
+----
+HashMap<String, ArrayList<Pair<Integer, String>>> keyTimeMap;
+
+    public TimeMap() {
+        keyTimeMap = new HashMap();
+    }
+
+    public void set(String key, String value, int timestamp) {
+        if (!keyTimeMap.containsKey(key)) {
+            keyTimeMap.put(key, new ArrayList());
+        }
+
+        // Store '(timestamp, value)' pair in 'key' bucket.
+        keyTimeMap.get(key).add(new Pair(timestamp, value));
+    }
+
+    public String get(String key, int timestamp) {
+        // If the 'key' does not exist in map we will return empty string.
+        if (!keyTimeMap.containsKey(key)) {
+            return "";
+        }
+
+        if (timestamp < keyTimeMap.get(key).get(0).getKey()) {
+            return "";
+        }
+
+        // Using binary search on the list of pairs.
+        int left = 0;
+        int right = keyTimeMap.get(key).size();
+
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (keyTimeMap.get(key).get(mid).getKey() <= timestamp) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+
+        // If iterator points to first element it means, no time <= timestamp exists.
+        if (right == 0) {
+            return "";
+        }
+
+        return keyTimeMap.get(key).get(right - 1).getValue();
+    }
+----
+
+== Sliding Window
+
+=== Best Time to Buy and Sell Stock
+Link: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+[source, java]
+----
+ public int maxProfit(int prices[]) {
+        int minprice = Integer.MAX_VALUE;
+        int maxprofit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < minprice)
+                minprice = prices[i];
+            else if (prices[i] - minprice > maxprofit)
+                maxprofit = prices[i] - minprice;
+        }
+        return maxprofit;
+    }
+----
+
+=== Longest Substring Without Repeating Characters
+Link: https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
+Given a string s, find the length of the longest
+substring
+without repeating characters.
+
+[source, java]
+----
+public int lengthOfLongestSubstring(String s) {
+        //two pointers
+        //first pointer iterate over array
+        //second pointer - last known position of simble
+        Integer[] chars = new Integer[128];
+
+        int left = 0;
+        int right = 0;
+
+        int res = 0;
+        while (right < s.length()) {
+            char r = s.charAt(right);
+
+            Integer index = chars[r];
+            if (index != null && index >= left && index < right) {
+                left = index + 1;
+            }
+
+            res = Math.max(res, right - left + 1);
+
+            chars[r] = right;
+            right++;
+        }
+
+        return res;
+    }
+----
+
+===  Longest Repeating Character Replacement
+Link: https://leetcode.com/problems/longest-repeating-character-replacement/
+You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
+
+Return the length of the longest substring containing the same letter you can get after performing the above operations.
+
+[source, java]
+----
+public int characterReplacement(String s, int k) {
+        int start = 0;
+        int[] frequencyMap = new int[26];
+        int maxFrequency = 0;
+        int longestSubstringLength = 0;
+
+        for (int end = 0; end < s.length(); end += 1) {
+            // if 'A' is 0, then what is the relative order
+            // or offset of the current character entering the window
+            // 0 is 'A', 1 is 'B' and so on
+            int currentChar = s.charAt(end) - 'A';
+
+            frequencyMap[currentChar] += 1;
+
+            // the maximum frequency we have seen in any window yet
+            maxFrequency = Math.max(maxFrequency, frequencyMap[currentChar]);
+
+            // move the start pointer towards right if the current
+            // window is invalid
+            Boolean isValid = (end + 1 - start - maxFrequency <= k);
+            if (!isValid) {
+                // offset of the character moving out of the window
+                int outgoingChar = s.charAt(start) - 'A';
+
+                // decrease its frequency
+                frequencyMap[outgoingChar] -= 1;
+
+                // move the start pointer forward
+                start += 1;
+            }
+
+            // the window is valid at this point, note down the length
+            // size of the window never decreases
+            longestSubstringLength = end + 1 - start;
+        }
+
+        return longestSubstringLength;
+    }
+----
+
+=== Permutation in String
+Link: https://leetcode.com/problems/permutation-in-string/
+Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+
+In other words, return true if one of s1's permutations is the substring of s2.
+
+[source, java]
+----
+public boolean checkInclusion(String s1, String s2) {
+        //Collect info about characters
+        // iterate over other string and decrese numbers
+        //check all numbers >= 0
+
+        if (s1.length() > s2.length())
+            return false;
+        int[] s1map = new int[26];
+        for (int i = 0; i < s1.length(); i++)
+            s1map[s1.charAt(i) - 'a']++;
+        for (int i = 0; i <= s2.length() - s1.length(); i++) {
+            int[] s2map = new int[26];
+            for (int j = 0; j < s1.length(); j++) {
+                s2map[s2.charAt(i + j) - 'a']++;
+            }
+            if (matches(s1map, s2map))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean matches(int[] s1map, int[] s2map) {
+        for (int i = 0; i < 26; i++) {
+            if (s1map[i] != s2map[i])
+                return false;
+        }
+        return true;
+
+    }
+----
+
+=== Minimum Window Substring
+Link: https://leetcode.com/problems/minimum-window-substring/
+Given two strings s and t of lengths m and n respectively, return the minimum window
+substring
+of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+[source, java]
+----
+public String minWindow(String s, String t) {
+
+        if (s.length() == 0 || t.length() == 0) {
+            return "";
+        }
+
+        Map<Character, Integer> dictT = new HashMap<Character, Integer>();
+
+        for (int i = 0; i < t.length(); i++) {
+            int count = dictT.getOrDefault(t.charAt(i), 0);
+            dictT.put(t.charAt(i), count + 1);
+        }
+
+        int required = dictT.size();
+
+        // Filter all the characters from s into a new list along with their index.
+        // The filtering criteria is that the character should be present in t.
+        List<Pair<Integer, Character>> filteredS = new ArrayList<Pair<Integer, Character>>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (dictT.containsKey(c)) {
+                filteredS.add(new Pair<Integer, Character>(i, c));
+            }
+        }
+
+        int l = 0, r = 0, formed = 0;
+        Map<Character, Integer> windowCounts = new HashMap<Character, Integer>();
+        int[] ans = { -1, 0, 0 };
+
+        // Look for the characters only in the filtered list instead of entire s.
+        // This helps to reduce our search.
+        // Hence, we follow the sliding window approach on as small list.
+        while (r < filteredS.size()) {
+            char c = filteredS.get(r).getValue();
+            int count = windowCounts.getOrDefault(c, 0);
+            windowCounts.put(c, count + 1);
+
+            if (dictT.containsKey(c) && windowCounts.get(c).intValue() == dictT.get(c).intValue()) {
+                formed++;
+            }
+
+            // Try and contract the window till the point where it ceases to be 'desirable'.
+            while (l <= r && formed == required) {
+                c = filteredS.get(l).getValue();
+
+                // Save the smallest window until now.
+                int end = filteredS.get(r).getKey();
+                int start = filteredS.get(l).getKey();
+                if (ans[0] == -1 || end - start + 1 < ans[0]) {
+                    ans[0] = end - start + 1;
+                    ans[1] = start;
+                    ans[2] = end;
+                }
+
+                windowCounts.put(c, windowCounts.get(c) - 1);
+                if (dictT.containsKey(c) && windowCounts.get(c).intValue() < dictT.get(c).intValue()) {
+                    formed--;
+                }
+                l++;
+            }
+            r++;
+        }
+        return ans[0] == -1 ? "" : s.substring(ans[1], ans[2] + 1);
+    }
+----
+
+== Trees
+
+=== Invert Binary Tree
+Link: https://leetcode.com/problems/invert-binary-tree/
+
+Given the root of a binary tree, invert the tree, and return its root.
+
+[source, java]
+----
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null)
+            return null;
+        return swap(root);
+    }
+
+    private TreeNode swap(TreeNode root) {
+        if(root==null)
+            return null;
+        swap(root.right);
+        swap(root.left);
+        TreeNode node = root.left;
+        root.left = root.right;
+        root.right = node;
+        return root;
+    }
+}
+----
+
+
+=== Maximum Depth of Binary Tree
+Link: https://leetcode.com/problems/maximum-depth-of-binary-tree/
+
+Given the root of a binary tree, return its maximum depth.
+
+A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+[source, java]
+----
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+
+    SortedSet<Integer> findMax = new TreeSet<>();
+
+        public int maxDepth(TreeNode root) {
+            int dep = 0;
+            findMax.add(0);
+            findMax(root, dep);
+            return findMax.last();
+        }
+
+    private void findMax(TreeNode root, int dep) {
+        if(root==null)
+            return;
+        dep++;
+            if(root.left!=null)
+                findMax(root.left, dep);
+            if(root.right!=null)
+                findMax(root.right,dep);
+            findMax.add(dep);
+    }}
+----
+
+=== Diameter of Binary Tree
+Link: https://leetcode.com/problems/diameter-of-binary-tree/
+
+Given the root of a binary tree, return the length of the diameter of the tree.
+
+The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+
+The length of a path between two nodes is represented by the number of edges between them.
+
+[source, java]
+----
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+     public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null) return 0;
+     depth(root);
+         return max;
+    }
+    int max = Integer.MIN_VALUE;
+    private int depth(TreeNode root) {
+        if (root == null) return 0;
+        int left = depth(root.left);
+        int right = depth(root.right);
+        max = Math.max(max, left + right);
+        return Math.max(left , right) + 1;
+    }
+}
+----
+
+===  Balanced Binary Tree
+Link: https://leetcode.com/problems/balanced-binary-tree/
+Given a binary tree, determine if it is
+height-balanced.
+A height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.
+[source, java]
+----
+public boolean isBalanced(TreeNode root) {
+    maxDepth(root);
+    return result;
+}
+
+public int maxDepth(TreeNode root) {
+    if (root == null)
+        return 0;
+    int l = maxDepth(root.left);
+    int r = maxDepth(root.right);
+    if (Math.abs(l - r) > 1)
+        result = false;
+    return 1 + Math.max(l, r);
+}
+----
+
+=== Same Tree
+Link: https://leetcode.com/problems/same-tree/
+
+Given the roots of two binary trees p and q, write a function to check if they are the same or not.
+
+Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+
+[source, java]
+----
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public boolean isSameTree(TreeNode p, TreeNode q) {
+    if(p == null && q == null) return true;
+    if(p == null || q == null) return false;
+    if(p.val == q.val)
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    return false;
+}
+//No recursion
+
+public boolean isSameTree(TreeNode p, TreeNode q) {
+	     Stack<TreeNode> stack_p = new Stack <> ();
+	     Stack<TreeNode> stack_q = new Stack <> ();
+	     if (p != null) stack_p.push( p ) ;
+	     if (q != null) stack_q.push( q ) ;
+	     while (!stack_p.isEmpty() && !stack_q.isEmpty()) {
+	    	 TreeNode pn = stack_p.pop() ;
+	    	 TreeNode qn = stack_q.pop() ;
+	    	 if (pn.val != qn.val) return false ;
+	    	 if (pn.right != null) stack_p.push(pn.right) ;
+	    	 if (qn.right != null) stack_q.push(qn.right) ;
+	    	 if (stack_p.size() != stack_q.size()) return false ;
+	    	 if (pn.left != null) stack_p.push(pn.left) ;
+	    	 if (qn.left != null) stack_q.push(qn.left) ;
+	    	 if (stack_p.size() != stack_q.size()) return false ;
+	     }
+	     return stack_p.size() == stack_q.size() ;
+	 }
+----
+
+=== Subtree of Another Tree
+Link: https://leetcode.com/problems/subtree-of-another-tree/
+
+Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.
+
+A subtree of a binary tree *tree* is a tree that consists of a node in tree and all of this node's descendants. The tree tree could also be considered as a subtree of itself.
+
+[source, java]
+----
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+
+        // If this node is Empty, then no tree is rooted at this Node
+        // Hence, "tree rooted at node" cannot be equal to "tree rooted at subRoot"
+        // "tree rooted at subRoot" will always be non-empty, as per constraints
+        if (root == null) {
+            return false;
+        }
+
+        // Check if the "tree rooted at root" is identical to "tree roooted at subRoot"
+        if (isIdentical(root, subRoot)) {
+            return true;
+        }
+
+        // If not, check for "tree rooted at root.left" and "tree rooted at root.right"
+        // If either of them returns true, return true
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    private boolean isIdentical(TreeNode node1, TreeNode node2) {
+
+        // If any of the nodes is null, then both must be null
+        if (node1 == null || node2 == null) {
+            return node1 == null && node2 == null;
+        }
+
+        // If both nodes are non-empty, then they are identical only if
+        // 1. Their values are equal
+        // 2. Their left subtrees are identical
+        // 3. Their right subtrees are identical
+        return node1.val == node2.val && isIdentical(node1.left, node2.left) && isIdentical(node1.right, node2.right);
+    }
+}
+----
+
+===  Lowest Common Ancestor of a Binary Search Tree
+Link: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+
+Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+
+[source, java]
+----
+public class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root.val > p.val && root.val > q.val){
+            return lowestCommonAncestor(root.left, p, q);
+        }else if(root.val < p.val && root.val < q.val){
+            return lowestCommonAncestor(root.right, p, q);
+        }else{
+            return root;
+        }
+    }
+}
+----
+
+=== Binary Tree Level Order Traversal
+Link: https://leetcode.com/problems/binary-tree-level-order-traversal/
+Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+
+[source, java]
+----
+public class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        List<List<Integer>> wrapList = new LinkedList<List<Integer>>();
+
+        if(root == null) return wrapList;
+
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int levelNum = queue.size();
+            List<Integer> subList = new LinkedList<Integer>();
+            for(int i=0; i<levelNum; i++) {
+                if(queue.peek().left != null) queue.offer(queue.peek().left);
+                if(queue.peek().right != null) queue.offer(queue.peek().right);
+                subList.add(queue.poll().val);
+            }
+            wrapList.add(subList);
+        }
+        return wrapList;
+    }
+}
+----
+
+=== Binary Tree Right Side View
+Link: https://leetcode.com/problems/binary-tree-right-side-view/
+Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+[source, java]
+----
+public class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<Integer>();
+        rightView(root, result, 0);
+        return result;
+    }
+
+    public void rightView(TreeNode curr, List<Integer> result, int currDepth){
+        if(curr == null){
+            return;
+        }
+        if(currDepth == result.size()){
+            result.add(curr.val);
+        }
+
+        rightView(curr.right, result, currDepth + 1);
+        rightView(curr.left, result, currDepth + 1);
+
+    }
+}
+----
+
+=== Count Good Nodes in Binary Tree
+Link: https://leetcode.com/problems/count-good-nodes-in-binary-tree/
+
+Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.
+
+Return the number of good nodes in the binary tree.
+
+[source, java]
+----
+class Solution {
+    public int goodNodes(TreeNode root) {
+        return goodNodes(root, -10000);
+    }
+
+    public int goodNodes(TreeNode root, int ma) {
+        if (root == null) return 0;
+        int res = root.val >= ma ? 1 : 0;
+        res += goodNodes(root.left, Math.max(ma, root.val));
+        res += goodNodes(root.right, Math.max(ma, root.val));
+        return res;
+    }
+}
+----
+
+=== Validate Binary Search Tree
+Link: https://leetcode.com/problems/validate-binary-search-tree/
+Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+
+A valid BST is defined as follows:
+
+The left
+subtree
+of a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
 
 
 [source, java]
 ----
+public class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    public boolean isValidBST(TreeNode root, long minVal, long maxVal) {
+        if (root == null) return true;
+        if (root.val >= maxVal || root.val <= minVal) return false;
+        return isValidBST(root.left, minVal, root.val) && isValidBST(root.right, root.val, maxVal);
+    }
+}
 ----
 
+=== Kth Smallest Element in a BST
+Link: https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.
+
+[source, java]
+----
+class Solution {
+  public ArrayList<Integer> inorder(TreeNode root, ArrayList<Integer> arr) {
+    if (root == null) return arr;
+    inorder(root.left, arr);
+    arr.add(root.val);
+    inorder(root.right, arr);
+    return arr;
+  }
+
+  public int kthSmallest(TreeNode root, int k) {
+    ArrayList<Integer> nums = inorder(root, new ArrayList<Integer>());
+    return nums.get(k - 1);
+  }
+}
+----
+
+=== Construct Binary Tree from Preorder and Inorder Traversal
+Link: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
 
 
+[source, java]
+----
+public TreeNode buildTree(int[] preorder, int[] inorder) {
+    return helper(0, 0, inorder.length - 1, preorder, inorder);
+}
+
+public TreeNode helper(int preStart, int inStart, int inEnd, int[] preorder, int[] inorder) {
+    if (preStart > preorder.length - 1 || inStart > inEnd) {
+        return null;
+    }
+    TreeNode root = new TreeNode(preorder[preStart]);
+    int inIndex = 0; // Index of current root in inorder
+    for (int i = inStart; i <= inEnd; i++) {
+        if (inorder[i] == root.val) {
+            inIndex = i;
+        }
+    }
+    root.left = helper(preStart + 1, inStart, inIndex - 1, preorder, inorder);
+    root.right = helper(preStart + inIndex - inStart + 1, inIndex + 1, inEnd, preorder, inorder);
+    return root;
+}
+----
+
+== Tries
+
+=== Implement Trie (Prefix Tree)
+Link: https://leetcode.com/problems/implement-trie-prefix-tree/
+
+A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
+
+Implement the Trie class:
+
+Trie() Initializes the trie object.
+void insert(String word) Inserts the string word into the trie.
+boolean search(String word) Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.
+boolean startsWith(String prefix) Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
+
+[source, java]
+----
+class TrieNode {
+    public boolean isWord;
+    public TrieNode[] children = new TrieNode[26];
+    public TrieNode() {}
+}
+
+public class Trie {
+    private TrieNode root;
+    public Trie() {
+        root = new TrieNode();
+    }
+
+    public void insert(String word) {
+        TrieNode ws = root;
+        for(int i = 0; i < word.length(); i++){
+            char c = word.charAt(i);
+            if(ws.children[c - 'a'] == null){
+                ws.children[c - 'a'] = new TrieNode();
+            }
+            ws = ws.children[c - 'a'];
+        }
+        ws.isWord = true;
+    }
+
+    public boolean search(String word) {
+        TrieNode ws = root;
+        for(int i = 0; i < word.length(); i++){
+            char c = word.charAt(i);
+            if(ws.children[c - 'a'] == null) return false;
+            ws = ws.children[c - 'a'];
+        }
+        return ws.isWord;
+    }
+
+    public boolean startsWith(String prefix) {
+        TrieNode ws = root;
+        for(int i = 0; i < prefix.length(); i++){
+            char c = prefix.charAt(i);
+            if(ws.children[c - 'a'] == null) return false;
+            ws = ws.children[c - 'a'];
+        }
+        return true;
+    }
+}
+----
+=== Design Add and Search Words Data Structure
+Link: https://leetcode.com/problems/design-add-and-search-words-data-structure/
+
+Design a data structure that supports adding new words and finding if a string matches any previously added string.
+
+Implement the WordDictionary class:
+
+WordDictionary() Initializes the object.
+void addWord(word) Adds word to the data structure, it can be matched later.
+bool search(word) Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.
+
+[source, java]
+----
+public class WordDictionary {
+    public class TrieNode {
+        public TrieNode[] children = new TrieNode[26];
+        public String item = "";
+    }
+
+    private TrieNode root = new TrieNode();
+
+    public void addWord(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            if (node.children[c - 'a'] == null) {
+                node.children[c - 'a'] = new TrieNode();
+            }
+            node = node.children[c - 'a'];
+        }
+        node.item = word;
+    }
+
+    public boolean search(String word) {
+        return match(word.toCharArray(), 0, root);
+    }
+
+    private boolean match(char[] chs, int k, TrieNode node) {
+        if (k == chs.length) return !node.item.equals("");
+        if (chs[k] != '.') {
+            return node.children[chs[k] - 'a'] != null && match(chs, k + 1, node.children[chs[k] - 'a']);
+        } else {
+            for (int i = 0; i < node.children.length; i++) {
+                if (node.children[i] != null) {
+                    if (match(chs, k + 1, node.children[i])) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}
+----
+
+== Heap / Priority Queue
+
+=== Kth Largest Element in a Stream
+Link: https://leetcode.com/problems/kth-largest-element-in-a-stream/
+
+Design a class to find the kth largest element in a stream. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+Implement KthLargest class:
+
+KthLargest(int k, int[] nums) Initializes the object with the integer k and the stream of integers nums.
+int add(int val) Appends the integer val to the stream and returns the element representing the kth largest element in the stream.
+
+[source, java]
+----
+class KthLargest {
+    private static int k;
+    private PriorityQueue<Integer> heap;
+
+    public KthLargest(int k, int[] nums) {
+        this.k = k;
+        heap = new PriorityQueue<>();
+
+        for (int num: nums) {
+            heap.offer(num);
+        }
+
+        while (heap.size() > k) {
+            heap.poll();
+        }
+    }
+
+    public int add(int val) {
+        heap.offer(val);
+        if (heap.size() > k) {
+            heap.poll();
+        }
+
+        return heap.peek();
+    }
+}
+----
+
+=== Last Stone Weight
+Link: https://leetcode.com/problems/last-stone-weight/
+
+You are given an array of integers stones where stones[i] is the weight of the ith stone.
+
+We are playing a game with the stones. On each turn, we choose the heaviest two stones and smash them together. Suppose the heaviest two stones have weights x and y with x <= y. The result of this smash is:
+
+If x == y, both stones are destroyed, and
+If x != y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x.
+At the end of the game, there is at most one stone left.
+
+Return the weight of the last remaining stone. If there are no stones left, return 0.
+
+[source, java]
+----
+ public int lastStoneWeight(int[] A) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b)-> b - a);
+        for (int a : A)
+            pq.offer(a);
+        while (pq.size() > 1)
+            pq.offer(pq.poll() - pq.poll());
+        return pq.poll();
+    }
+----
+
+=== K Closest Points to Origin
+Link: https://leetcode.com/problems/k-closest-points-to-origin/
+Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
+
+The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
+
+You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
 
 
+[source, java]
+----
+ public int[][] kClosest(int[][] points, int K) {
+     Arrays.sort(points, Comparator.comparing(p -> p[0] * p[0] + p[1] * p[1]));
+        return Arrays.copyOfRange(points, 0, K);
+    }
+----
+
+=== Kth Largest Element in an Array
+Link: https://leetcode.com/problems/kth-largest-element-in-an-array/
+
+Given an integer array nums and an integer k, return the kth largest element in the array.
+
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+You must solve it in O(n) time complexity.
+
+[source, java]
+----
+//https://en.wikipedia.org/wiki/Quickselect
+public int findKthLargest(int[] nums, int k) {
+  return quickSelect(nums, 0, nums.length - 1, k);
+}
+
+int quickSelect(int[] nums, int low, int high, int k) {
+  int pivot = low;
+
+  // use quick sort's idea
+  // put nums that are <= pivot to the left
+  // put nums that are  > pivot to the right
+  for (int j = low; j < high; j++) {
+    if (nums[j] <= nums[high]) {
+      swap(nums, pivot++, j);
+    }
+  }
+  swap(nums, pivot, high);
+
+  // count the nums that are > pivot from high
+  int count = high - pivot + 1;
+  // pivot is the one!
+  if (count == k) return nums[pivot];
+  // pivot is too small, so it must be on the right
+  if (count > k) return quickSelect(nums, pivot + 1, high, k);
+  // pivot is too big, so it must be on the left
+  return quickSelect(nums, low, pivot - 1, k - count);
+}
+----
+
+===
+Link:
 
 
+[source, java]
+----
+
+----
+===
+Link:
 
 
+[source, java]
+----
+
+----
+===
+Link:
 
 
+[source, java]
+----
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+----
 
