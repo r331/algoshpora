@@ -1,0 +1,2628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.15">
+<title>A set of basic algorithms for a job interview at a decent company</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:50%;border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>A set of basic algorithms for a job interview at a decent company</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_decent_algorithms">Decent algorithms</a></li>
+<li><a href="#_arrays_hash_functions">Arrays &amp; hash functions</a>
+<ul class="sectlevel2">
+<li><a href="#_contains_duplicate">Contains Duplicate</a></li>
+<li><a href="#_valid_anagram">Valid Anagram</a></li>
+<li><a href="#_two_sum">Two Sum</a></li>
+<li><a href="#_group_anagrams">Group Anagrams</a></li>
+<li><a href="#_top_k_frequent_elements">Top K Frequent Elements</a></li>
+<li><a href="#_product_of_array_except_self">Product of Array Except Self</a></li>
+<li><a href="#_valid_sudoku">Valid Sudoku</a></li>
+<li><a href="#_longest_consecutive_sequence">Longest Consecutive Sequence</a></li>
+</ul>
+</li>
+<li><a href="#_two_pointers">Two Pointers</a>
+<ul class="sectlevel2">
+<li><a href="#_valid_palindrome">Valid Palindrome</a></li>
+<li><a href="#_two_sum_ii_input_array_is_sorted">Two Sum II - Input Array Is Sorted</a></li>
+<li><a href="#_3sum">3Sum</a></li>
+<li><a href="#_container_with_most_water">Container With Most Water</a></li>
+<li><a href="#_trapping_rain_water">Trapping Rain Water</a></li>
+</ul>
+</li>
+<li><a href="#_stack">Stack</a>
+<ul class="sectlevel2">
+<li><a href="#_valid_parentheses">Valid Parentheses</a></li>
+<li><a href="#_min_stack">Min Stack</a></li>
+<li><a href="#_evaluate_reverse_polish_notation">Evaluate Reverse Polish Notation</a></li>
+<li><a href="#_generate_parentheses">Generate Parentheses</a></li>
+<li><a href="#_daily_temperatures">Daily Temperatures</a></li>
+<li><a href="#_car_fleet">Car Fleet</a></li>
+</ul>
+</li>
+<li><a href="#_binary_search">Binary Search</a>
+<ul class="sectlevel2">
+<li><a href="#_binary_search_2">Binary Search</a></li>
+<li><a href="#_search_a_2d_matrix">Search a 2D Matrix</a></li>
+<li><a href="#_koko_eating_bananas">Koko Eating Bananas</a></li>
+<li><a href="#_find_minimum_in_rotated_sorted_array">Find Minimum in Rotated Sorted Array</a></li>
+<li><a href="#_time_based_key_value_store">Time Based Key-Value Store</a></li>
+</ul>
+</li>
+<li><a href="#_sliding_window">Sliding Window</a>
+<ul class="sectlevel2">
+<li><a href="#_best_time_to_buy_and_sell_stock">Best Time to Buy and Sell Stock</a></li>
+<li><a href="#_longest_substring_without_repeating_characters">Longest Substring Without Repeating Characters</a></li>
+<li><a href="#_longest_repeating_character_replacement">Longest Repeating Character Replacement</a></li>
+<li><a href="#_permutation_in_string">Permutation in String</a></li>
+<li><a href="#_minimum_window_substring">Minimum Window Substring</a></li>
+</ul>
+</li>
+<li><a href="#_trees">Trees</a>
+<ul class="sectlevel2">
+<li><a href="#_invert_binary_tree">Invert Binary Tree</a></li>
+<li><a href="#_maximum_depth_of_binary_tree">Maximum Depth of Binary Tree</a></li>
+<li><a href="#_diameter_of_binary_tree">Diameter of Binary Tree</a></li>
+<li><a href="#_balanced_binary_tree">Balanced Binary Tree</a></li>
+<li><a href="#_same_tree">Same Tree</a></li>
+<li><a href="#_subtree_of_another_tree">Subtree of Another Tree</a></li>
+<li><a href="#_lowest_common_ancestor_of_a_binary_search_tree">Lowest Common Ancestor of a Binary Search Tree</a></li>
+<li><a href="#_binary_tree_level_order_traversal">Binary Tree Level Order Traversal</a></li>
+<li><a href="#_binary_tree_right_side_view">Binary Tree Right Side View</a></li>
+<li><a href="#_count_good_nodes_in_binary_tree">Count Good Nodes in Binary Tree</a></li>
+<li><a href="#_validate_binary_search_tree">Validate Binary Search Tree</a></li>
+<li><a href="#_kth_smallest_element_in_a_bst">Kth Smallest Element in a BST</a></li>
+<li><a href="#_construct_binary_tree_from_preorder_and_inorder_traversal">Construct Binary Tree from Preorder and Inorder Traversal</a></li>
+</ul>
+</li>
+<li><a href="#_tries">Tries</a>
+<ul class="sectlevel2">
+<li><a href="#_implement_trie_prefix_tree">Implement Trie (Prefix Tree)</a></li>
+<li><a href="#_design_add_and_search_words_data_structure">Design Add and Search Words Data Structure</a></li>
+</ul>
+</li>
+<li><a href="#_heap_priority_queue">Heap / Priority Queue</a>
+<ul class="sectlevel2">
+<li><a href="#_kth_largest_element_in_a_stream">Kth Largest Element in a Stream</a></li>
+<li><a href="#_last_stone_weight">Last Stone Weight</a></li>
+<li><a href="#_k_closest_points_to_origin">K Closest Points to Origin</a></li>
+<li><a href="#_kth_largest_element_in_an_array">Kth Largest Element in an Array</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_decent_algorithms">Decent algorithms</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/img.png" alt="decent weed (c) South Park">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_arrays_hash_functions">Arrays &amp; hash functions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_contains_duplicate">Contains Duplicate</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/contains-duplicate/" class="bare">https://leetcode.com/problems/contains-duplicate/</a></p>
+</div>
+<div class="paragraph">
+<p>Given an integer array <em>nums</em>, return <em>true</em> if any value appears <strong>at least twice</strong> in the array,
+and return <em>false</em> if every element is distinct.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public boolean containsDuplicate(int[] nums) {
+        Set&lt;Integer&gt; set = new HashSet&lt;Integer&gt;();
+        for(int i = 0; i &lt; nums.length; i++){
+            if(set.contains(nums[i]))
+            return true;
+            set.add(nums[i]);
+        }
+        return false;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_valid_anagram">Valid Anagram</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/valid-anagram/" class="bare">https://leetcode.com/problems/valid-anagram/</a></p>
+</div>
+<div class="paragraph">
+<p>Given two strings s and t, return true if t is an anagram of s, and false otherwise.</p>
+</div>
+<div class="paragraph">
+<p>An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase,
+typically using all the original letters exactly once.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public boolean isAnagram(String s, String t) {
+        // s &amp; t has only a-z
+        // s should == t
+        if(s.length() != t.length()) return false;
+
+        int [] letters = new int[26];
+        for(int i = 0; i &lt; s.length(); i++){
+            letters[s.charAt(i) - 'a']++;
+            letters[t.charAt(i) - 'a']--;
+        }
+
+        for(int i = 0; i &lt; 26; i++){
+            if(letters[i]!=0)
+            return false;
+        }
+        return true;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_two_sum">Two Sum</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/two-sum/" class="bare">https://leetcode.com/problems/two-sum/</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int[] twoSum(int[] nums, int target) {
+        var map = new HashMap&lt;Integer, Integer&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
+            if (map.containsKey((target - nums[i])))
+                return new int[]{map.get(target - nums[i]), i};
+            map.put(nums[i], i);
+        }
+        return new int[0];
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_group_anagrams">Group Anagrams</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/group-anagrams/" class="bare">https://leetcode.com/problems/group-anagrams/</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public List&lt;List&lt;String&gt;&gt; groupAnagrams(String[] strs) {
+        // we have a-z
+        // str!=null, str size &gt; 0
+
+        Map&lt;String, List&lt;String&gt;&gt; map = new HashMap&lt;&gt;();
+
+        for(String s : strs){
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            if(map.containsKey(key)){
+                map.get(key).add(s);
+            }else{
+                var lst = new ArrayList&lt;String&gt;();
+                lst.add(s);
+                 map.put(key, lst);
+
+            }
+
+        }
+        return map.values().stream().toList();
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_top_k_frequent_elements">Top K Frequent Elements</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/top-k-frequent-elements/" class="bare">https://leetcode.com/problems/top-k-frequent-elements/</a></p>
+</div>
+<div class="paragraph">
+<p>Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int[] topKFrequent(int[] nums, int k) {
+        // sort -&gt; place it in TreeMap (or Sort Stack)
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for(int i =0; i &lt; nums.length; i++){
+            if(map.containsKey(nums[i])){
+                map.put(nums[i], map.get(nums[i]) + 1);
+            }
+            else{
+                map.put(nums[i], 1);
+            }
+        }
+          Queue&lt;Integer&gt; heap = new PriorityQueue&lt;&gt;(
+            (n1, n2) -&gt; map.get(n1) - map.get(n2));
+
+           for (int n: map.keySet()) {
+          heap.add(n);
+          if (heap.size() &gt; k) heap.poll();
+        }
+
+        return heap.stream().mapToInt(x -&gt; x).toArray();
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_product_of_array_except_self">Product of Array Except Self</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/product-of-array-except-self/" class="bare">https://leetcode.com/problems/product-of-array-except-self/</a></p>
+</div>
+<div class="paragraph">
+<p>Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].</p>
+</div>
+<div class="paragraph">
+<p>The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.</p>
+</div>
+<div class="paragraph">
+<p>You must write an algorithm that runs in O(n) time and without using the division operation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int[] productExceptSelf(int[] nums) {
+       // asume that a[0] * a[1] * ... a[n] &lt;= MAX_INTEGER
+               int len = nums.length;
+        int [] result = new int[len];
+
+        int left[] = new int[len];
+        int right[] = new int[len];
+
+        left[0] = 1;
+        right [len - 1] = 1;
+        for(int i = 1; i &lt; len; i++){
+            left[i] = left[i - 1] * nums[i - 1];
+        }
+        for(int i = len - 2; i &gt;= 0; i--){
+            right[i] = right[i + 1] * nums[i + 1];
+        }
+
+        for( int i =0; i &lt; len; i++){
+            result[i] = left[i] * right[i];
+        }
+        return result;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_valid_sudoku">Valid Sudoku</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/valid-sudoku/" class="bare">https://leetcode.com/problems/valid-sudoku/</a></p>
+</div>
+<div class="paragraph">
+<p>Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:</p>
+</div>
+<div class="paragraph">
+<p>Each row must contain the digits 1-9 without repetition.
+Each column must contain the digits 1-9 without repetition.
+Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+Note:</p>
+</div>
+<div class="paragraph">
+<p>A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+Only the filled cells need to be validated according to the mentioned rules.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public boolean isValidSudoku(char[][] board) {
+        // 9x9
+        // each row 1-9 without reprtition
+        //each colum 1-9 without repetiotion
+        //each boxes with size 3x3 should contain 1-9 without rep
+        //we have dots if no symbol
+        // possible values 1-9 and dots
+        ////////
+        //check all things separately
+        int len = board.length;
+
+        HashSet&lt;Character&gt;[] rows = new HashSet[len];
+        HashSet&lt;Character&gt;[] columns = new HashSet[len];
+        HashSet&lt;Character&gt;[][] boxes = new HashSet[len / 3][len / 3];
+
+        for (int i = 0; i &lt; len; i++) {
+            rows[i] = new HashSet&lt;Character&gt;();
+            columns[i] = new HashSet&lt;Character&gt;();
+
+        }
+        for (int r = 0; r &lt; len / 3; r++)
+            for (int c = 0; c &lt; len / 3; c++)
+                boxes[r][c] = new HashSet&lt;Character&gt;();
+
+
+        for (int r = 0; r &lt; len; r++)
+            for (int c = 0; c &lt; len; c++) {
+                var sym = board[r][c];
+                if (sym == '.')
+                    continue;
+                if (rows[r].contains(sym))
+                    return false;
+                rows[r].add(sym);
+
+                if (columns[c].contains(sym))
+                    return false;
+                columns[c].add(sym);
+
+                if (boxes[r / 3][c / 3].contains(sym))
+                    return false;
+                boxes[r / 3][c / 3].add(sym);
+            }
+        return true;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_longest_consecutive_sequence">Longest Consecutive Sequence</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/longest-consecutive-sequence/" class="bare">https://leetcode.com/problems/longest-consecutive-sequence/</a></p>
+</div>
+<div class="paragraph">
+<p>Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.</p>
+</div>
+<div class="paragraph">
+<p>You must write an algorithm that runs in O(n) time.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int longestConsecutive(int[] nums) {
+        if(nums.length == 0)
+            return 0;
+        Set&lt;Integer&gt; dig = new HashSet&lt;Integer&gt;();
+
+        for(int i : nums)
+            dig.add(i);
+
+        int maxLen = 1;
+
+        for(int i = 0; i &lt; nums.length; i++){
+            int val = nums[i];
+            if(dig.contains(val-1))
+                continue;
+            int currLen = 1;
+            while(true){
+                if(!dig.contains(val+currLen))
+                    break;
+                currLen++;
+            }
+            maxLen = currLen &gt; maxLen ? currLen : maxLen;
+        }
+        return maxLen;
+    }</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_two_pointers">Two Pointers</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_valid_palindrome">Valid Palindrome</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/valid-palindrome/" class="bare">https://leetcode.com/problems/valid-palindrome/</a></p>
+</div>
+<div class="paragraph">
+<p>A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.</p>
+</div>
+<div class="paragraph">
+<p>Given a string s, return true if it is a palindrome, or false otherwise.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public boolean isPalindrome(String s) {
+        //s min len = 1
+        int len = s.length();
+        if(len == 1) return true;
+        s = s.toLowerCase();
+
+        for(int start = 0, end = len - 1; start &lt; end; start++, end--){
+            while(start&lt;end &amp;&amp; isNotCharOrDigit(s.charAt(start))){
+                start++;
+            }
+            while(start&lt;end &amp;&amp; isNotCharOrDigit(s.charAt(end))){
+                end--;
+            }
+            if(s.charAt(start)!=s.charAt(end))
+            return false;
+        }
+
+
+        return true;
+    }
+
+    boolean isNotCharOrDigit(char c){
+        return !Character.isLetterOrDigit(c);
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_two_sum_ii_input_array_is_sorted">Two Sum II - Input Array Is Sorted</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/" class="bare">https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/</a></p>
+</div>
+<div class="paragraph">
+<p>Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 &#8656; index1 &lt; index2 &#8656; numbers.length.</p>
+</div>
+<div class="paragraph">
+<p>Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.</p>
+</div>
+<div class="paragraph">
+<p>The tests are generated such that there is exactly one solution. You may not use the same element twice.</p>
+</div>
+<div class="paragraph">
+<p>Your solution must use only constant extra space.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int[] twoSum(int[] numbers, int target) {
+       int start = 0;
+       int end = numbers.length - 1;
+       while(start &lt; end) {
+           int sum = numbers[start] + numbers[end];
+           if(sum == target)
+            break;
+        if(sum &lt; target)
+            start++;
+        if(sum &gt; target)
+            end--;
+
+       }
+       return new int[]{start + 1, end + 1};
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3sum">3Sum</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/3sum/" class="bare">https://leetcode.com/problems/3sum/</a></p>
+</div>
+<div class="paragraph">
+<p>Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.</p>
+</div>
+<div class="paragraph">
+<p>Notice that the solution set must not contain duplicate triplets.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) {
+       int len = nums.length;
+       List&lt;List&lt;Integer&gt;&gt; ans=new ArrayList&lt;List&lt;Integer&gt;&gt;();
+        Arrays.sort(nums); //nlogn
+        // a + b + c = 0
+        // b + c = -a
+        HashSet&lt;Integer&gt; allA = new HashSet&lt;&gt;();
+        for(int i = 0; i &lt; len - 2; i++){
+            if(allA.contains(nums[i]))
+            continue;
+            allA.add(nums[i]);
+            findSum(nums, i, ans);
+        }
+        return ans;
+    }
+
+    void findSum(int[] nums, int from, List&lt;List&lt;Integer&gt;&gt; ans){
+            int start = from + 1;
+            int end = nums.length - 1;
+
+            while(start &lt; end){
+                int sum = nums[from] + nums[start] + nums[end];
+                if(sum &gt; 0)
+                end--;
+                else if(sum&lt;0)
+                start++;
+                else {
+                    ans.add(List.of(nums[from], nums[start], nums[end]));
+                    int current = nums[start];
+                    while( start&lt;end &amp;&amp; current==nums[start])
+                    start++;
+                }
+            }
+
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_container_with_most_water">Container With Most Water</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/container-with-most-water/" class="bare">https://leetcode.com/problems/container-with-most-water/</a></p>
+</div>
+<div class="paragraph">
+<p>You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).</p>
+</div>
+<div class="paragraph">
+<p>Find two lines that together with the x-axis form a container, such that the container contains the most water.</p>
+</div>
+<div class="paragraph">
+<p>Return the maximum amount of water a container can store.</p>
+</div>
+<div class="paragraph">
+<p>Notice that you may not slant the container.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int maxArea(int[] height) {
+        int start = 0;
+        int end = height.length - 1;
+        int max = 0;
+        while(start&lt;end){
+            int square = (end - start) * Math.min(height[start], height[end]);
+            max = Math.max(square, max);
+            if(height[start] &lt; height[end])
+                start++;
+            else
+                end--;
+        }
+        return max;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_trapping_rain_water">Trapping Rain Water</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/trapping-rain-water/" class="bare">https://leetcode.com/problems/trapping-rain-water/</a></p>
+</div>
+<div class="paragraph">
+<p>Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int trap(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+
+        int maxLeft = 0;
+        int maxRight = 0;
+
+        int sum = 0;
+
+        while(left &lt; right){
+            if(height[left] &gt; maxLeft)
+                maxLeft = height[left];
+            if(height[right] &gt; maxRight)
+                maxRight = height[right];
+
+            if(maxLeft &lt; maxRight){
+                sum += Math.max(0, maxLeft - height[left]);
+                left++;
+            }
+            else{
+                sum += Math.max(0, maxRight - height[right]);
+                right--;
+            }
+        }
+        return sum;
+    }</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stack">Stack</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_valid_parentheses">Valid Parentheses</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/valid-parentheses/" class="bare">https://leetcode.com/problems/valid-parentheses/</a></p>
+</div>
+<div class="paragraph">
+<p>Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.</p>
+</div>
+<div class="paragraph">
+<p>An input string is valid if:</p>
+</div>
+<div class="paragraph">
+<p>Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public boolean isValid(String s) {
+        int len = s.length();
+        if(len%2 == 1)
+        return false;
+
+        Stack&lt;Character&gt; stack = new Stack&lt;Character&gt;();
+
+        for(int i =0; i&lt;len-1; i++ ){
+
+        }
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_min_stack">Min Stack</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/min-stack/" class="bare">https://leetcode.com/problems/min-stack/</a></p>
+</div>
+<div class="paragraph">
+<p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
+</div>
+<div class="paragraph">
+<p>Implement the MinStack class:</p>
+</div>
+<div class="paragraph">
+<p>MinStack() initializes the stack object.
+void push(int val) pushes the element val onto the stack.
+void pop() removes the element on the top of the stack.
+int top() gets the top element of the stack.
+int getMin() retrieves the minimum element in the stack.
+You must implement a solution with O(1) time complexity for each function.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Stack&lt;Integer&gt; main = new Stack&lt;Integer&gt;();
+    Stack&lt;Integer&gt; min = new Stack&lt;Integer&gt;();
+
+    public MinStack() {
+
+    }
+
+    public void push(int val) {
+        if(main.isEmpty() || val &lt;= min.peek()){
+            main.push(val);
+            min.push(val);
+        }
+        else
+            main.push(val);
+    }
+
+    public void pop() {
+        if(main.peek().equals(min.peek())){
+            min.pop();
+        }
+
+            main.pop();
+
+    }
+
+    public int top() {
+        return main.peek();
+    }
+
+    public int getMin() {
+        return min.peek();
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_evaluate_reverse_polish_notation">Evaluate Reverse Polish Notation</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/evaluate-reverse-polish-notation/" class="bare">https://leetcode.com/problems/evaluate-reverse-polish-notation/</a></p>
+</div>
+<div class="paragraph">
+<p>You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation.</p>
+</div>
+<div class="paragraph">
+<p>Evaluate the expression. Return an integer that represents the value of the expression.</p>
+</div>
+<div class="paragraph">
+<p>Note that:</p>
+</div>
+<div class="paragraph">
+<p>The valid operators are '+', '-', '*', and '/'.
+Each operand may be an integer or another expression.
+The division between two integers always truncates toward zero.
+There will not be any division by zero.
+The input represents a valid arithmetic expression in a reverse polish notation.
+The answer and all the intermediate calculations can be represented in a 32-bit integer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">private static final Map&lt;String, BiFunction&lt;Integer, Integer, Integer&gt;&gt; OPERATIONS = new HashMap&lt;&gt;();
+    private static Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
+
+
+    static {
+        OPERATIONS.put("+", (a, b) -&gt; a + b);
+        OPERATIONS.put("-", (a, b) -&gt; a - b);
+        OPERATIONS.put("*", (a, b) -&gt; a * b);
+        OPERATIONS.put("/", (a, b) -&gt; a / b);
+    }
+
+    public int evalRPN(String[] tokens) {
+        int len = tokens.length;
+        for(int i = 0; i&lt;len; i++){
+
+            if(OPERATIONS.containsKey(tokens[i])){
+                var operation = OPERATIONS.get(tokens[i]);
+                int second = stack.pop();
+                int first = stack.pop();
+                var result = operation.apply(first, second);
+                stack.push(result);
+            }
+            else
+             stack.push(Integer.valueOf(tokens[i]));
+        }
+        return stack.pop();
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_generate_parentheses">Generate Parentheses</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/generate-parentheses/" class="bare">https://leetcode.com/problems/generate-parentheses/</a></p>
+</div>
+<div class="paragraph">
+<p>Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">private final List&lt;String&gt; s = new ArrayList&lt;&gt;();
+    public List&lt;String&gt; generateParenthesis(int n) {
+        // we need to know about parentheses
+        // n  - maximum amount of open par
+        // current number of open should be &lt;=closed
+       checkIfOpen(s, 0, 0, "", n );
+       return s;
+    }
+     public void checkIfOpen(List&lt;String&gt; res, int left, int right, String s, int n) {
+        if (s.length() == n * 2) {
+            res.add(s);
+            return;
+        }
+
+        if (left &lt; n) {
+            checkIfOpen(res, left + 1, right, s + "(", n);
+        }
+
+        if (right &lt; left) {
+            checkIfOpen(res, left, right + 1, s + ")", n);
+        }
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_daily_temperatures">Daily Temperatures</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/daily-temperatures/" class="bare">https://leetcode.com/problems/daily-temperatures/</a>
+Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int[] dailyTemperatures(int[] temperatures) {
+        // last day is always 0
+        // we need to return new array, so use new array
+       Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
+        int[] ret = new int[temperatures.length];
+     for(int i = 0; i &lt; temperatures.length; i++) {
+          while(!stack.isEmpty() &amp;&amp; temperatures[i] &gt; temperatures[stack.peek()]) {
+              int idx = stack.pop();
+              ret[idx] = i - idx;
+           }
+        stack.push(i);
+    }
+    return ret;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_car_fleet">Car Fleet</h3>
+<div class="paragraph">
+<p>Link: leetcode.com/problems/car-fleet/</p>
+</div>
+<div class="paragraph">
+<p>There are n cars going to the same destination along a one-lane road. The destination is target miles away.</p>
+</div>
+<div class="paragraph">
+<p>You are given two integer array position and speed, both of length n, where position[i] is the position of the ith car and speed[i] is the speed of the ith car (in miles per hour).</p>
+</div>
+<div class="paragraph">
+<p>A car can never pass another car ahead of it, but it can catch up to it and drive bumper to bumper at the same speed. The faster car will slow down to match the slower car&#8217;s speed. The distance between these two cars is ignored (i.e., they are assumed to have the same position).</p>
+</div>
+<div class="paragraph">
+<p>A car fleet is some non-empty set of cars driving at the same position and same speed. Note that a single car is also a car fleet.</p>
+</div>
+<div class="paragraph">
+<p>If a car catches up to a car fleet right at the destination point, it will still be considered as one car fleet.</p>
+</div>
+<div class="paragraph">
+<p>Return the number of car fleets that will arrive at the destination.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"> public int carFleet(int target, int[] pos, int[] speed) {
+        int N = pos.length, res = 0;
+        double[][] cars = new double[N][2];
+        for (int i = 0; i &lt; N; ++i)
+            cars[i] = new double[] {pos[i], (double)(target - pos[i]) / speed[i]};
+        Arrays.sort(cars, (a, b) -&gt; Double.compare(a[0], b[0]));
+        double cur = 0;
+        for (int i = N - 1; i &gt;= 0 ; --i) {
+            if (cars[i][1] &gt; cur) {
+                cur = cars[i][1];
+                res++;
+            }
+        }
+        return res;
+    }</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_binary_search">Binary Search</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_binary_search_2">Binary Search</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/binary-search/" class="bare">https://leetcode.com/problems/binary-search/</a></p>
+</div>
+<div class="paragraph">
+<p>Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.</p>
+</div>
+<div class="paragraph">
+<p>You must write an algorithm with O(log n) runtime complexity.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int search(int[] nums, int target) {
+        if(nums == null &amp;&amp; nums.length == 0)
+        return -1;
+        int medium = (nums.length) / 2;
+
+        return binary(nums, 0, nums.length - 1, target);
+    }
+
+    int binary(int []arr, int start, int end, int target){
+            if(start == end)
+                if(arr[start] == target)
+                return start;
+                else return -1;
+            if(target &lt; arr[start] || arr[end] &lt; target)
+            return -1;
+            int medium = (end - start) / 2 + start;
+            if(arr[medium] == target)
+            return medium;
+
+            if(arr[medium]&lt; target)
+            return binary(arr, medium + 1, end, target);
+            else return binary(arr, start, medium, target);
+    }
+// Lower boud - where we can put
+public int search(int[] nums, int target) {
+        // Set the left and right boundaries
+        int left = 0, right = nums.length;
+
+        while (left &lt; right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] &gt;= target) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        if (left &lt; nums.length &amp;&amp; nums[left] == target) {
+            return left;
+        } else {
+            return -1;
+        }
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_search_a_2d_matrix">Search a 2D Matrix</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/search-a-2d-matrix/" class="bare">https://leetcode.com/problems/search-a-2d-matrix/</a></p>
+</div>
+<div class="paragraph">
+<p>You are given an m x n integer matrix matrix with the following two properties:</p>
+</div>
+<div class="paragraph">
+<p>Each row is sorted in non-decreasing order.
+The first integer of each row is greater than the last integer of the previous row.
+Given an integer target, return true if target is in matrix or false otherwise.</p>
+</div>
+<div class="paragraph">
+<p>You must write a solution in O(log(m * n)) time complexity.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public boolean searchMatrix(int[][] matrix, int target) {
+     int rows = matrix.length;
+        if (rows == 0)
+            return false;
+        int col = matrix[0].length;
+
+        int start = 0;
+        int end = rows * col - 1;
+        while(start &lt;= end){
+            int mid = start + (end - start)/2;
+            int current = matrix[mid/col][mid%col];
+            if(current == target)
+              return true;
+            if(current&gt;target)
+
+                 end = mid - 1;
+            else
+                   start = mid + 1;
+        }
+        return false;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_koko_eating_bananas">Koko Eating Bananas</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/koko-eating-bananas/" class="bare">https://leetcode.com/problems/koko-eating-bananas/</a></p>
+</div>
+<div class="paragraph">
+<p>Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.</p>
+</div>
+<div class="paragraph">
+<p>Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.</p>
+</div>
+<div class="paragraph">
+<p>Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.</p>
+</div>
+<div class="paragraph">
+<p>Return the minimum integer k such that she can eat all the bananas within h hours.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int minEatingSpeed(int[] piles, int H) {
+        int l = 1, r = 1000000000;
+        while (l &lt; r) {
+            int m = (l + r) / 2, total = 0;
+            for (int p : piles)
+                total += (p + m - 1) / m;
+            if (total &gt; H)
+                l = m + 1;
+            else
+                r = m;
+        }
+        return l;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_find_minimum_in_rotated_sorted_array">Find Minimum in Rotated Sorted Array</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/" class="bare">https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/</a></p>
+</div>
+<div class="paragraph">
+<p>Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:</p>
+</div>
+<div class="paragraph">
+<p>[4,5,6,7,0,1,2] if it was rotated 4 times.
+[0,1,2,4,5,6,7] if it was rotated 7 times.
+Notice that rotating an array [a[0], a[1], a[2], &#8230;&#8203;, a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], &#8230;&#8203;, a[n-2]].</p>
+</div>
+<div class="paragraph">
+<p>Given the sorted rotated array nums of unique elements, return the minimum element of this array.</p>
+</div>
+<div class="paragraph">
+<p>You must write an algorithm that runs in O(log n) time.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int findMin(int[] nums) {
+        // If the list has just one element then return that element.
+        if (nums.length == 1) {
+            return nums[0];
+        }
+
+        // initializing left and right pointers.
+        int left = 0, right = nums.length - 1;
+
+        // if the last element is greater than the first element then there is no
+        // rotation.
+        // e.g. 1 &lt; 2 &lt; 3 &lt; 4 &lt; 5 &lt; 7. Already sorted array.
+        // Hence the smallest element is first element. A[0]
+        if (nums[right] &gt; nums[0]) {
+            return nums[0];
+        }
+
+        // Binary search way
+        while (right &gt;= left) {
+            // Find the mid element
+            int mid = left + (right - left) / 2;
+
+            // if the mid element is greater than its next element then mid+1 element is the
+            // smallest
+            // This point would be the point of change. From higher to lower value.
+            if (nums[mid] &gt; nums[mid + 1]) {
+                return nums[mid + 1];
+            }
+
+            // if the mid element is lesser than its previous element then mid element is
+            // the smallest
+            if (nums[mid - 1] &gt; nums[mid]) {
+                return nums[mid];
+            }
+
+            // if the mid elements value is greater than the 0th element this means
+            // the least value is still somewhere to the right as we are still dealing with
+            // elements
+            // greater than nums[0]
+            if (nums[mid] &gt; nums[0]) {
+                left = mid + 1;
+            } else {
+                // if nums[0] is greater than the mid value then this means the smallest value
+                // is somewhere to
+                // the left
+                right = mid - 1;
+            }
+        }
+        return Integer.MAX_VALUE;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_time_based_key_value_store">Time Based Key-Value Store</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/time-based-key-value-store/" class="bare">https://leetcode.com/problems/time-based-key-value-store/</a></p>
+</div>
+<div class="paragraph">
+<p>Design a time-based key-value data structure that can store multiple values for the same key at different time stamps and retrieve the key&#8217;s value at a certain timestamp.</p>
+</div>
+<div class="paragraph">
+<p>Implement the TimeMap class:</p>
+</div>
+<div class="paragraph">
+<p>TimeMap() Initializes the object of the data structure.
+void set(String key, String value, int timestamp) Stores the key key with the value value at the given time timestamp.
+String get(String key, int timestamp) Returns a value such that set was called previously, with timestamp_prev &#8656; timestamp. If there are multiple such values, it returns the value associated with the largest timestamp_prev. If there are no values, it returns "".</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">HashMap&lt;String, ArrayList&lt;Pair&lt;Integer, String&gt;&gt;&gt; keyTimeMap;
+
+    public TimeMap() {
+        keyTimeMap = new HashMap();
+    }
+
+    public void set(String key, String value, int timestamp) {
+        if (!keyTimeMap.containsKey(key)) {
+            keyTimeMap.put(key, new ArrayList());
+        }
+
+        // Store '(timestamp, value)' pair in 'key' bucket.
+        keyTimeMap.get(key).add(new Pair(timestamp, value));
+    }
+
+    public String get(String key, int timestamp) {
+        // If the 'key' does not exist in map we will return empty string.
+        if (!keyTimeMap.containsKey(key)) {
+            return "";
+        }
+
+        if (timestamp &lt; keyTimeMap.get(key).get(0).getKey()) {
+            return "";
+        }
+
+        // Using binary search on the list of pairs.
+        int left = 0;
+        int right = keyTimeMap.get(key).size();
+
+        while (left &lt; right) {
+            int mid = (left + right) / 2;
+            if (keyTimeMap.get(key).get(mid).getKey() &lt;= timestamp) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+
+        // If iterator points to first element it means, no time &lt;= timestamp exists.
+        if (right == 0) {
+            return "";
+        }
+
+        return keyTimeMap.get(key).get(right - 1).getValue();
+    }</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sliding_window">Sliding Window</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_best_time_to_buy_and_sell_stock">Best Time to Buy and Sell Stock</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" class="bare">https://leetcode.com/problems/best-time-to-buy-and-sell-stock/</a></p>
+</div>
+<div class="paragraph">
+<p>You are given an array prices where prices[i] is the price of a given stock on the ith day.</p>
+</div>
+<div class="paragraph">
+<p>You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.</p>
+</div>
+<div class="paragraph">
+<p>Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"> public int maxProfit(int prices[]) {
+        int minprice = Integer.MAX_VALUE;
+        int maxprofit = 0;
+        for (int i = 0; i &lt; prices.length; i++) {
+            if (prices[i] &lt; minprice)
+                minprice = prices[i];
+            else if (prices[i] - minprice &gt; maxprofit)
+                maxprofit = prices[i] - minprice;
+        }
+        return maxprofit;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_longest_substring_without_repeating_characters">Longest Substring Without Repeating Characters</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" class="bare">https://leetcode.com/problems/longest-substring-without-repeating-characters/</a></p>
+</div>
+<div class="paragraph">
+<p>Given a string s, find the length of the longest
+substring
+without repeating characters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int lengthOfLongestSubstring(String s) {
+        //two pointers
+        //first pointer iterate over array
+        //second pointer - last known position of simble
+        Integer[] chars = new Integer[128];
+
+        int left = 0;
+        int right = 0;
+
+        int res = 0;
+        while (right &lt; s.length()) {
+            char r = s.charAt(right);
+
+            Integer index = chars[r];
+            if (index != null &amp;&amp; index &gt;= left &amp;&amp; index &lt; right) {
+                left = index + 1;
+            }
+
+            res = Math.max(res, right - left + 1);
+
+            chars[r] = right;
+            right++;
+        }
+
+        return res;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_longest_repeating_character_replacement">Longest Repeating Character Replacement</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/longest-repeating-character-replacement/" class="bare">https://leetcode.com/problems/longest-repeating-character-replacement/</a>
+You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.</p>
+</div>
+<div class="paragraph">
+<p>Return the length of the longest substring containing the same letter you can get after performing the above operations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public int characterReplacement(String s, int k) {
+        int start = 0;
+        int[] frequencyMap = new int[26];
+        int maxFrequency = 0;
+        int longestSubstringLength = 0;
+
+        for (int end = 0; end &lt; s.length(); end += 1) {
+            // if 'A' is 0, then what is the relative order
+            // or offset of the current character entering the window
+            // 0 is 'A', 1 is 'B' and so on
+            int currentChar = s.charAt(end) - 'A';
+
+            frequencyMap[currentChar] += 1;
+
+            // the maximum frequency we have seen in any window yet
+            maxFrequency = Math.max(maxFrequency, frequencyMap[currentChar]);
+
+            // move the start pointer towards right if the current
+            // window is invalid
+            Boolean isValid = (end + 1 - start - maxFrequency &lt;= k);
+            if (!isValid) {
+                // offset of the character moving out of the window
+                int outgoingChar = s.charAt(start) - 'A';
+
+                // decrease its frequency
+                frequencyMap[outgoingChar] -= 1;
+
+                // move the start pointer forward
+                start += 1;
+            }
+
+            // the window is valid at this point, note down the length
+            // size of the window never decreases
+            longestSubstringLength = end + 1 - start;
+        }
+
+        return longestSubstringLength;
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_permutation_in_string">Permutation in String</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/permutation-in-string/" class="bare">https://leetcode.com/problems/permutation-in-string/</a>
+Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.</p>
+</div>
+<div class="paragraph">
+<p>In other words, return true if one of s1&#8217;s permutations is the substring of s2.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public boolean checkInclusion(String s1, String s2) {
+        //Collect info about characters
+        // iterate over other string and decrese numbers
+        //check all numbers &gt;= 0
+
+        if (s1.length() &gt; s2.length())
+            return false;
+        int[] s1map = new int[26];
+        for (int i = 0; i &lt; s1.length(); i++)
+            s1map[s1.charAt(i) - 'a']++;
+        for (int i = 0; i &lt;= s2.length() - s1.length(); i++) {
+            int[] s2map = new int[26];
+            for (int j = 0; j &lt; s1.length(); j++) {
+                s2map[s2.charAt(i + j) - 'a']++;
+            }
+            if (matches(s1map, s2map))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean matches(int[] s1map, int[] s2map) {
+        for (int i = 0; i &lt; 26; i++) {
+            if (s1map[i] != s2map[i])
+                return false;
+        }
+        return true;
+
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_minimum_window_substring">Minimum Window Substring</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/minimum-window-substring/" class="bare">https://leetcode.com/problems/minimum-window-substring/</a>
+Given two strings s and t of lengths m and n respectively, return the minimum window
+substring
+of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".</p>
+</div>
+<div class="paragraph">
+<p>The testcases will be generated such that the answer is unique.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public String minWindow(String s, String t) {
+
+        if (s.length() == 0 || t.length() == 0) {
+            return "";
+        }
+
+        Map&lt;Character, Integer&gt; dictT = new HashMap&lt;Character, Integer&gt;();
+
+        for (int i = 0; i &lt; t.length(); i++) {
+            int count = dictT.getOrDefault(t.charAt(i), 0);
+            dictT.put(t.charAt(i), count + 1);
+        }
+
+        int required = dictT.size();
+
+        // Filter all the characters from s into a new list along with their index.
+        // The filtering criteria is that the character should be present in t.
+        List&lt;Pair&lt;Integer, Character&gt;&gt; filteredS = new ArrayList&lt;Pair&lt;Integer, Character&gt;&gt;();
+        for (int i = 0; i &lt; s.length(); i++) {
+            char c = s.charAt(i);
+            if (dictT.containsKey(c)) {
+                filteredS.add(new Pair&lt;Integer, Character&gt;(i, c));
+            }
+        }
+
+        int l = 0, r = 0, formed = 0;
+        Map&lt;Character, Integer&gt; windowCounts = new HashMap&lt;Character, Integer&gt;();
+        int[] ans = { -1, 0, 0 };
+
+        // Look for the characters only in the filtered list instead of entire s.
+        // This helps to reduce our search.
+        // Hence, we follow the sliding window approach on as small list.
+        while (r &lt; filteredS.size()) {
+            char c = filteredS.get(r).getValue();
+            int count = windowCounts.getOrDefault(c, 0);
+            windowCounts.put(c, count + 1);
+
+            if (dictT.containsKey(c) &amp;&amp; windowCounts.get(c).intValue() == dictT.get(c).intValue()) {
+                formed++;
+            }
+
+            // Try and contract the window till the point where it ceases to be 'desirable'.
+            while (l &lt;= r &amp;&amp; formed == required) {
+                c = filteredS.get(l).getValue();
+
+                // Save the smallest window until now.
+                int end = filteredS.get(r).getKey();
+                int start = filteredS.get(l).getKey();
+                if (ans[0] == -1 || end - start + 1 &lt; ans[0]) {
+                    ans[0] = end - start + 1;
+                    ans[1] = start;
+                    ans[2] = end;
+                }
+
+                windowCounts.put(c, windowCounts.get(c) - 1);
+                if (dictT.containsKey(c) &amp;&amp; windowCounts.get(c).intValue() &lt; dictT.get(c).intValue()) {
+                    formed--;
+                }
+                l++;
+            }
+            r++;
+        }
+        return ans[0] == -1 ? "" : s.substring(ans[1], ans[2] + 1);
+    }</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_trees">Trees</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_invert_binary_tree">Invert Binary Tree</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/invert-binary-tree/" class="bare">https://leetcode.com/problems/invert-binary-tree/</a></p>
+</div>
+<div class="paragraph">
+<p>Given the root of a binary tree, invert the tree, and return its root.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null)
+            return null;
+        return swap(root);
+    }
+
+    private TreeNode swap(TreeNode root) {
+        if(root==null)
+            return null;
+        swap(root.right);
+        swap(root.left);
+        TreeNode node = root.left;
+        root.left = root.right;
+        root.right = node;
+        return root;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_maximum_depth_of_binary_tree">Maximum Depth of Binary Tree</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/" class="bare">https://leetcode.com/problems/maximum-depth-of-binary-tree/</a></p>
+</div>
+<div class="paragraph">
+<p>Given the root of a binary tree, return its maximum depth.</p>
+</div>
+<div class="paragraph">
+<p>A binary tree&#8217;s maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+
+    SortedSet&lt;Integer&gt; findMax = new TreeSet&lt;&gt;();
+
+        public int maxDepth(TreeNode root) {
+            int dep = 0;
+            findMax.add(0);
+            findMax(root, dep);
+            return findMax.last();
+        }
+
+    private void findMax(TreeNode root, int dep) {
+        if(root==null)
+            return;
+        dep++;
+            if(root.left!=null)
+                findMax(root.left, dep);
+            if(root.right!=null)
+                findMax(root.right,dep);
+            findMax.add(dep);
+    }}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_diameter_of_binary_tree">Diameter of Binary Tree</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/diameter-of-binary-tree/" class="bare">https://leetcode.com/problems/diameter-of-binary-tree/</a></p>
+</div>
+<div class="paragraph">
+<p>Given the root of a binary tree, return the length of the diameter of the tree.</p>
+</div>
+<div class="paragraph">
+<p>The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.</p>
+</div>
+<div class="paragraph">
+<p>The length of a path between two nodes is represented by the number of edges between them.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+     public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null) return 0;
+     depth(root);
+         return max;
+    }
+    int max = Integer.MIN_VALUE;
+    private int depth(TreeNode root) {
+        if (root == null) return 0;
+        int left = depth(root.left);
+        int right = depth(root.right);
+        max = Math.max(max, left + right);
+        return Math.max(left , right) + 1;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_balanced_binary_tree">Balanced Binary Tree</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/balanced-binary-tree/" class="bare">https://leetcode.com/problems/balanced-binary-tree/</a>
+Given a binary tree, determine if it is
+height-balanced.
+A height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public boolean isBalanced(TreeNode root) {
+    maxDepth(root);
+    return result;
+}
+
+public int maxDepth(TreeNode root) {
+    if (root == null)
+        return 0;
+    int l = maxDepth(root.left);
+    int r = maxDepth(root.right);
+    if (Math.abs(l - r) &gt; 1)
+        result = false;
+    return 1 + Math.max(l, r);
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_same_tree">Same Tree</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/same-tree/" class="bare">https://leetcode.com/problems/same-tree/</a></p>
+</div>
+<div class="paragraph">
+<p>Given the roots of two binary trees p and q, write a function to check if they are the same or not.</p>
+</div>
+<div class="paragraph">
+<p>Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public boolean isSameTree(TreeNode p, TreeNode q) {
+    if(p == null &amp;&amp; q == null) return true;
+    if(p == null || q == null) return false;
+    if(p.val == q.val)
+        return isSameTree(p.left, q.left) &amp;&amp; isSameTree(p.right, q.right);
+    return false;
+}
+//No recursion
+
+public boolean isSameTree(TreeNode p, TreeNode q) {
+	     Stack&lt;TreeNode&gt; stack_p = new Stack &lt;&gt; ();
+	     Stack&lt;TreeNode&gt; stack_q = new Stack &lt;&gt; ();
+	     if (p != null) stack_p.push( p ) ;
+	     if (q != null) stack_q.push( q ) ;
+	     while (!stack_p.isEmpty() &amp;&amp; !stack_q.isEmpty()) {
+	    	 TreeNode pn = stack_p.pop() ;
+	    	 TreeNode qn = stack_q.pop() ;
+	    	 if (pn.val != qn.val) return false ;
+	    	 if (pn.right != null) stack_p.push(pn.right) ;
+	    	 if (qn.right != null) stack_q.push(qn.right) ;
+	    	 if (stack_p.size() != stack_q.size()) return false ;
+	    	 if (pn.left != null) stack_p.push(pn.left) ;
+	    	 if (qn.left != null) stack_q.push(qn.left) ;
+	    	 if (stack_p.size() != stack_q.size()) return false ;
+	     }
+	     return stack_p.size() == stack_q.size() ;
+	 }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_subtree_of_another_tree">Subtree of Another Tree</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/subtree-of-another-tree/" class="bare">https://leetcode.com/problems/subtree-of-another-tree/</a></p>
+</div>
+<div class="paragraph">
+<p>Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.</p>
+</div>
+<div class="paragraph">
+<p>A subtree of a binary tree <strong>tree</strong> is a tree that consists of a node in tree and all of this node&#8217;s descendants. The tree tree could also be considered as a subtree of itself.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+
+        // If this node is Empty, then no tree is rooted at this Node
+        // Hence, "tree rooted at node" cannot be equal to "tree rooted at subRoot"
+        // "tree rooted at subRoot" will always be non-empty, as per constraints
+        if (root == null) {
+            return false;
+        }
+
+        // Check if the "tree rooted at root" is identical to "tree roooted at subRoot"
+        if (isIdentical(root, subRoot)) {
+            return true;
+        }
+
+        // If not, check for "tree rooted at root.left" and "tree rooted at root.right"
+        // If either of them returns true, return true
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    private boolean isIdentical(TreeNode node1, TreeNode node2) {
+
+        // If any of the nodes is null, then both must be null
+        if (node1 == null || node2 == null) {
+            return node1 == null &amp;&amp; node2 == null;
+        }
+
+        // If both nodes are non-empty, then they are identical only if
+        // 1. Their values are equal
+        // 2. Their left subtrees are identical
+        // 3. Their right subtrees are identical
+        return node1.val == node2.val &amp;&amp; isIdentical(node1.left, node2.left) &amp;&amp; isIdentical(node1.right, node2.right);
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lowest_common_ancestor_of_a_binary_search_tree">Lowest Common Ancestor of a Binary Search Tree</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" class="bare">https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/</a></p>
+</div>
+<div class="paragraph">
+<p>Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.</p>
+</div>
+<div class="paragraph">
+<p>According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root.val &gt; p.val &amp;&amp; root.val &gt; q.val){
+            return lowestCommonAncestor(root.left, p, q);
+        }else if(root.val &lt; p.val &amp;&amp; root.val &lt; q.val){
+            return lowestCommonAncestor(root.right, p, q);
+        }else{
+            return root;
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_tree_level_order_traversal">Binary Tree Level Order Traversal</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/" class="bare">https://leetcode.com/problems/binary-tree-level-order-traversal/</a>
+Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) {
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;TreeNode&gt;();
+        List&lt;List&lt;Integer&gt;&gt; wrapList = new LinkedList&lt;List&lt;Integer&gt;&gt;();
+
+        if(root == null) return wrapList;
+
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int levelNum = queue.size();
+            List&lt;Integer&gt; subList = new LinkedList&lt;Integer&gt;();
+            for(int i=0; i&lt;levelNum; i++) {
+                if(queue.peek().left != null) queue.offer(queue.peek().left);
+                if(queue.peek().right != null) queue.offer(queue.peek().right);
+                subList.add(queue.poll().val);
+            }
+            wrapList.add(subList);
+        }
+        return wrapList;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_tree_right_side_view">Binary Tree Right Side View</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/binary-tree-right-side-view/" class="bare">https://leetcode.com/problems/binary-tree-right-side-view/</a>
+Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Solution {
+    public List&lt;Integer&gt; rightSideView(TreeNode root) {
+        List&lt;Integer&gt; result = new ArrayList&lt;Integer&gt;();
+        rightView(root, result, 0);
+        return result;
+    }
+
+    public void rightView(TreeNode curr, List&lt;Integer&gt; result, int currDepth){
+        if(curr == null){
+            return;
+        }
+        if(currDepth == result.size()){
+            result.add(curr.val);
+        }
+
+        rightView(curr.right, result, currDepth + 1);
+        rightView(curr.left, result, currDepth + 1);
+
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_count_good_nodes_in_binary_tree">Count Good Nodes in Binary Tree</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/count-good-nodes-in-binary-tree/" class="bare">https://leetcode.com/problems/count-good-nodes-in-binary-tree/</a></p>
+</div>
+<div class="paragraph">
+<p>Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.</p>
+</div>
+<div class="paragraph">
+<p>Return the number of good nodes in the binary tree.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">class Solution {
+    public int goodNodes(TreeNode root) {
+        return goodNodes(root, -10000);
+    }
+
+    public int goodNodes(TreeNode root, int ma) {
+        if (root == null) return 0;
+        int res = root.val &gt;= ma ? 1 : 0;
+        res += goodNodes(root.left, Math.max(ma, root.val));
+        res += goodNodes(root.right, Math.max(ma, root.val));
+        return res;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_validate_binary_search_tree">Validate Binary Search Tree</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/validate-binary-search-tree/" class="bare">https://leetcode.com/problems/validate-binary-search-tree/</a>
+Given the root of a binary tree, determine if it is a valid binary search tree (BST).</p>
+</div>
+<div class="paragraph">
+<p>A valid BST is defined as follows:</p>
+</div>
+<div class="paragraph">
+<p>The left
+subtree
+of a node contains only nodes with keys less than the node&#8217;s key.
+The right subtree of a node contains only nodes with keys greater than the node&#8217;s key.
+Both the left and right subtrees must also be binary search trees.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    public boolean isValidBST(TreeNode root, long minVal, long maxVal) {
+        if (root == null) return true;
+        if (root.val &gt;= maxVal || root.val &lt;= minVal) return false;
+        return isValidBST(root.left, minVal, root.val) &amp;&amp; isValidBST(root.right, root.val, maxVal);
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kth_smallest_element_in_a_bst">Kth Smallest Element in a BST</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/" class="bare">https://leetcode.com/problems/kth-smallest-element-in-a-bst/</a>
+Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">class Solution {
+  public ArrayList&lt;Integer&gt; inorder(TreeNode root, ArrayList&lt;Integer&gt; arr) {
+    if (root == null) return arr;
+    inorder(root.left, arr);
+    arr.add(root.val);
+    inorder(root.right, arr);
+    return arr;
+  }
+
+  public int kthSmallest(TreeNode root, int k) {
+    ArrayList&lt;Integer&gt; nums = inorder(root, new ArrayList&lt;Integer&gt;());
+    return nums.get(k - 1);
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_construct_binary_tree_from_preorder_and_inorder_traversal">Construct Binary Tree from Preorder and Inorder Traversal</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" class="bare">https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/</a>
+Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public TreeNode buildTree(int[] preorder, int[] inorder) {
+    return helper(0, 0, inorder.length - 1, preorder, inorder);
+}
+
+public TreeNode helper(int preStart, int inStart, int inEnd, int[] preorder, int[] inorder) {
+    if (preStart &gt; preorder.length - 1 || inStart &gt; inEnd) {
+        return null;
+    }
+    TreeNode root = new TreeNode(preorder[preStart]);
+    int inIndex = 0; // Index of current root in inorder
+    for (int i = inStart; i &lt;= inEnd; i++) {
+        if (inorder[i] == root.val) {
+            inIndex = i;
+        }
+    }
+    root.left = helper(preStart + 1, inStart, inIndex - 1, preorder, inorder);
+    root.right = helper(preStart + inIndex - inStart + 1, inIndex + 1, inEnd, preorder, inorder);
+    return root;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tries">Tries</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_implement_trie_prefix_tree">Implement Trie (Prefix Tree)</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/implement-trie-prefix-tree/" class="bare">https://leetcode.com/problems/implement-trie-prefix-tree/</a></p>
+</div>
+<div class="paragraph">
+<p>A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.</p>
+</div>
+<div class="paragraph">
+<p>Implement the Trie class:</p>
+</div>
+<div class="paragraph">
+<p>Trie() Initializes the trie object.
+void insert(String word) Inserts the string word into the trie.
+boolean search(String word) Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.
+boolean startsWith(String prefix) Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">class TrieNode {
+    public boolean isWord;
+    public TrieNode[] children = new TrieNode[26];
+    public TrieNode() {}
+}
+
+public class Trie {
+    private TrieNode root;
+    public Trie() {
+        root = new TrieNode();
+    }
+
+    public void insert(String word) {
+        TrieNode ws = root;
+        for(int i = 0; i &lt; word.length(); i++){
+            char c = word.charAt(i);
+            if(ws.children[c - 'a'] == null){
+                ws.children[c - 'a'] = new TrieNode();
+            }
+            ws = ws.children[c - 'a'];
+        }
+        ws.isWord = true;
+    }
+
+    public boolean search(String word) {
+        TrieNode ws = root;
+        for(int i = 0; i &lt; word.length(); i++){
+            char c = word.charAt(i);
+            if(ws.children[c - 'a'] == null) return false;
+            ws = ws.children[c - 'a'];
+        }
+        return ws.isWord;
+    }
+
+    public boolean startsWith(String prefix) {
+        TrieNode ws = root;
+        for(int i = 0; i &lt; prefix.length(); i++){
+            char c = prefix.charAt(i);
+            if(ws.children[c - 'a'] == null) return false;
+            ws = ws.children[c - 'a'];
+        }
+        return true;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_design_add_and_search_words_data_structure">Design Add and Search Words Data Structure</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/design-add-and-search-words-data-structure/" class="bare">https://leetcode.com/problems/design-add-and-search-words-data-structure/</a></p>
+</div>
+<div class="paragraph">
+<p>Design a data structure that supports adding new words and finding if a string matches any previously added string.</p>
+</div>
+<div class="paragraph">
+<p>Implement the WordDictionary class:</p>
+</div>
+<div class="paragraph">
+<p>WordDictionary() Initializes the object.
+void addWord(word) Adds word to the data structure, it can be matched later.
+bool search(word) Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class WordDictionary {
+    public class TrieNode {
+        public TrieNode[] children = new TrieNode[26];
+        public String item = "";
+    }
+
+    private TrieNode root = new TrieNode();
+
+    public void addWord(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            if (node.children[c - 'a'] == null) {
+                node.children[c - 'a'] = new TrieNode();
+            }
+            node = node.children[c - 'a'];
+        }
+        node.item = word;
+    }
+
+    public boolean search(String word) {
+        return match(word.toCharArray(), 0, root);
+    }
+
+    private boolean match(char[] chs, int k, TrieNode node) {
+        if (k == chs.length) return !node.item.equals("");
+        if (chs[k] != '.') {
+            return node.children[chs[k] - 'a'] != null &amp;&amp; match(chs, k + 1, node.children[chs[k] - 'a']);
+        } else {
+            for (int i = 0; i &lt; node.children.length; i++) {
+                if (node.children[i] != null) {
+                    if (match(chs, k + 1, node.children[i])) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_heap_priority_queue">Heap / Priority Queue</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_kth_largest_element_in_a_stream">Kth Largest Element in a Stream</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/kth-largest-element-in-a-stream/" class="bare">https://leetcode.com/problems/kth-largest-element-in-a-stream/</a></p>
+</div>
+<div class="paragraph">
+<p>Design a class to find the kth largest element in a stream. Note that it is the kth largest element in the sorted order, not the kth distinct element.</p>
+</div>
+<div class="paragraph">
+<p>Implement KthLargest class:</p>
+</div>
+<div class="paragraph">
+<p>KthLargest(int k, int[] nums) Initializes the object with the integer k and the stream of integers nums.
+int add(int val) Appends the integer val to the stream and returns the element representing the kth largest element in the stream.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">class KthLargest {
+    private static int k;
+    private PriorityQueue&lt;Integer&gt; heap;
+
+    public KthLargest(int k, int[] nums) {
+        this.k = k;
+        heap = new PriorityQueue&lt;&gt;();
+
+        for (int num: nums) {
+            heap.offer(num);
+        }
+
+        while (heap.size() &gt; k) {
+            heap.poll();
+        }
+    }
+
+    public int add(int val) {
+        heap.offer(val);
+        if (heap.size() &gt; k) {
+            heap.poll();
+        }
+
+        return heap.peek();
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_last_stone_weight">Last Stone Weight</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/last-stone-weight/" class="bare">https://leetcode.com/problems/last-stone-weight/</a></p>
+</div>
+<div class="paragraph">
+<p>You are given an array of integers stones where stones[i] is the weight of the ith stone.</p>
+</div>
+<div class="paragraph">
+<p>We are playing a game with the stones. On each turn, we choose the heaviest two stones and smash them together. Suppose the heaviest two stones have weights x and y with x &#8656; y. The result of this smash is:</p>
+</div>
+<div class="paragraph">
+<p>If x == y, both stones are destroyed, and
+If x != y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x.
+At the end of the game, there is at most one stone left.</p>
+</div>
+<div class="paragraph">
+<p>Return the weight of the last remaining stone. If there are no stones left, return 0.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"> public int lastStoneWeight(int[] A) {
+        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;((a, b)-&gt; b - a);
+        for (int a : A)
+            pq.offer(a);
+        while (pq.size() &gt; 1)
+            pq.offer(pq.poll() - pq.poll());
+        return pq.poll();
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_k_closest_points_to_origin">K Closest Points to Origin</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/k-closest-points-to-origin/" class="bare">https://leetcode.com/problems/k-closest-points-to-origin/</a>
+Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).</p>
+</div>
+<div class="paragraph">
+<p>The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).</p>
+</div>
+<div class="paragraph">
+<p>You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"> public int[][] kClosest(int[][] points, int K) {
+     Arrays.sort(points, Comparator.comparing(p -&gt; p[0] * p[0] + p[1] * p[1]));
+        return Arrays.copyOfRange(points, 0, K);
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kth_largest_element_in_an_array">Kth Largest Element in an Array</h3>
+<div class="paragraph">
+<p>Link: <a href="https://leetcode.com/problems/kth-largest-element-in-an-array/" class="bare">https://leetcode.com/problems/kth-largest-element-in-an-array/</a></p>
+</div>
+<div class="paragraph">
+<p>Given an integer array nums and an integer k, return the kth largest element in the array.</p>
+</div>
+<div class="paragraph">
+<p>Note that it is the kth largest element in the sorted order, not the kth distinct element.</p>
+</div>
+<div class="paragraph">
+<p>You must solve it in O(n) time complexity.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">//https://en.wikipedia.org/wiki/Quickselect
+public int findKthLargest(int[] nums, int k) {
+  return quickSelect(nums, 0, nums.length - 1, k);
+}
+
+int quickSelect(int[] nums, int low, int high, int k) {
+  int pivot = low;
+
+  // use quick sort's idea
+  // put nums that are &lt;= pivot to the left
+  // put nums that are  &gt; pivot to the right
+  for (int j = low; j &lt; high; j++) {
+    if (nums[j] &lt;= nums[high]) {
+      swap(nums, pivot++, j);
+    }
+  }
+  swap(nums, pivot, high);
+
+  // count the nums that are &gt; pivot from high
+  int count = high - pivot + 1;
+  // pivot is the one!
+  if (count == k) return nums[pivot];
+  // pivot is too small, so it must be on the right
+  if (count &gt; k) return quickSelect(nums, pivot + 1, high, k);
+  // pivot is too big, so it must be on the left
+  return quickSelect(nums, low, pivot - 1, k - count);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>===
+Link:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>===
+Link:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>===
+Link:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2023-02-12 04:07:30 UTC
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
+</body>
+</html>
